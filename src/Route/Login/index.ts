@@ -1,16 +1,17 @@
 import * as Router from 'koa-router'
+import { User } from '../../DBModel'
+import { error, success } from '../../Message'
 const router = new Router()
 router.post('/', async (ctx: any) => {
-    
-
-    ctx.body = {
-        token: 'abc',
-        refce_token: 'refce_token'
+    try {
+        const data = await User.create({
+            ...ctx.data,
+        })
+        ctx.body = success(data)
+    } catch (err) {
+        console.log(err)
+        ctx.body = 'error'
     }
-})
-
-router.get('/main', async (ctx: any) => {
-    ctx.body = '-------login/main--------'
 })
 
 export default router

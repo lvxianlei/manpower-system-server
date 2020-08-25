@@ -2,7 +2,6 @@ import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser'
 import * as cors from 'koa2-cors'
 import router from './Route'
-import { nextTick } from 'process';
 const app = new Koa();
 
 app.use(bodyParser())
