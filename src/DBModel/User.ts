@@ -2,20 +2,9 @@ import { DataTypes } from 'sequelize'
 import { definModel } from '../ConfigDB'
 
 export default definModel('user', {
-    username: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    password: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
+    username: DataTypes.STRING(100),
+    password: DataTypes.STRING(100),
     email: DataTypes.STRING(100),
-    gender: DataTypes.INTEGER,
-    idNumber: {
-        type: DataTypes.STRING(100),
-        allowNull: false
-    },
-    phone: DataTypes.STRING(100),
-    authority: DataTypes.NUMBER
+    idNumber: DataTypes.STRING(100),
+    phone: DataTypes.STRING(100)
 })

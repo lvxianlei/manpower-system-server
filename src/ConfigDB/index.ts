@@ -1,7 +1,11 @@
 import { Sequelize, DataTypes } from 'sequelize'
+import * as uuid from 'node-uuid'
 import config from './config'
 const { dialect, database, username, password, host, port } = config
-const sequelize = new Sequelize(database, username, password, {
+
+export const generateId = () => uuid.v4()
+    
+export const sequelize = new Sequelize(database, username, password, {
     dialect,
     host,
     port: port,
@@ -45,8 +49,11 @@ export const definModel = (name: string, attributes: any) => {
             beforeValidate: function (obj: any) {
                 let now = Date.now();
                 if (obj.isNewRecord) {
-                    obj.createdAt = now;
-                    obj.updatedAt = now;
+                    if (!obj.id) {
+                        obj.id = generateId()
+                    }
+                    obj.createdAt = now
+                    obj.updatedAt = now
                 } else {
                     obj.updatedAt = Date.now();
                 }
