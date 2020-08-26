@@ -6,5 +6,6 @@ export default definModel('user', {
     password: DataTypes.STRING(100),
     email: DataTypes.STRING(100),
     idNumber: DataTypes.STRING(100),
-    phone: DataTypes.STRING(100)
+    phone: DataTypes.STRING(100),
+    type: DataTypes.INTEGER(),
 })
