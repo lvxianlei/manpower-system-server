@@ -1,6 +1,6 @@
 import * as Router from 'koa-router'
 import * as uuid from 'node-uuid'
-import { User } from '../../DBModel'
+import DBModel, { User } from '../../DBModel'
 import * as jsonwebtoken from 'jsonwebtoken'
 import { success } from '../../Message'
 const router = new Router()

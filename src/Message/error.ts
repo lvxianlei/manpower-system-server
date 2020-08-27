@@ -1,5 +1,5 @@
 
 export default (message: any) => ({
-    code: -1,
+    code: 3,
     msg: message
 })
