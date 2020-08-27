@@ -8,7 +8,7 @@ const SECRET = 'manpower-admin'
 
 router.post('/', async (ctx: any) => {
     try {
-        const { username, password } = ctx.data
+        const { username, password } = ctx.request.body
         const usernameItem: any = await User.findOne({ where: { username } })
         if (usernameItem) {
             if (usernameItem.password === password) {
