@@ -2,6 +2,7 @@ import * as Router from 'koa-router'
 import DBModel from '../../DBModel'
 import { List, MapDB } from '../../CommenJSON'
 import { success, error } from '../../Message'
+import { formatExcel } from '../../Util'
 const router = new Router()
 router.post('/', async (ctx: any) => {
     try {
@@ -16,6 +17,11 @@ router.post('/', async (ctx: any) => {
     } catch (err) {
         ctx.body = error(err)
     }
+})
+
+router.post('/upload', async (ctx: any) => {
+    const data = await formatExcel(ctx.request.files)
+    ctx.body = success(data)
 })
 
 export default router
