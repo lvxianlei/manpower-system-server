@@ -11,4 +11,23 @@ router.post('/', async (ctx: any) => {
         ctx.body = error(err)
     }
 })
+
+router.put('/', async (ctx: any) => {
+    try {
+        const { type } = ctx.data
+        const DBType = MapDB[type]
+        const option: Array<any> = Edit[type]
+        const postData: any = {}
+        postData.password = '123456'
+        postData.type = '2'
+        option.forEach((oim) => {
+            postData[oim.name] = ctx.data[oim.name]
+        })
+        const userData = await DBModel[DBType].create(postData)
+        ctx.body = success(userData)
+    } catch (err) {
+        ctx.body = error(err)
+    }
+})
+
 export default router

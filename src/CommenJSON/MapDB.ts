@@ -1,8 +1,8 @@
 const MapDB: any = {
-    system_setting: "User",
+    system_setting: "SystemUser",
     user_info: "User",
-    attendance: "User",
-    achievements: "User",
+    attendance: "Attendance",
+    achievements: "Achievements",
 }
 
 export default MapDB

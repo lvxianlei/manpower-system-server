@@ -11,7 +11,8 @@ router.post('/', async (ctx: any) => {
         const userData = await DBModel[DBType].findAll({
             attributes: {
                 exclude: ['createdAt', 'password', 'updatedAt', 'type']
-            }
+            },
+            order: [['createdAt', 'DESC']]
         })
         ctx.body = success({ head: List[type], data: userData })
     } catch (err) {
