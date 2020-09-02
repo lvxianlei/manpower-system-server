@@ -4,7 +4,7 @@ import config from './config'
 const { dialect, database, username, password, host, port } = config
 
 export const generateId = () => uuid.v4()
-    
+
 export const sequelize = new Sequelize(database, username, password, {
     dialect,
     host,

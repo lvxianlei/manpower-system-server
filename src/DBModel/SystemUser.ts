@@ -5,7 +5,10 @@ export default definModel('system_user', {
     username: DataTypes.STRING(100),
     password: DataTypes.STRING(100),
     email: DataTypes.STRING(100),
-    idNumber: DataTypes.STRING(100),
+    idNumber: {
+        type:DataTypes.STRING(100),
+        
+    },
     phone: DataTypes.STRING(100),
     type: DataTypes.INTEGER(),
 })

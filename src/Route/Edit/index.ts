@@ -23,8 +23,11 @@ router.put('/', async (ctx: any) => {
         option.forEach((oim) => {
             postData[oim.name] = ctx.data[oim.name]
         })
-        const userData = await DBModel[DBType].create(postData)
-        ctx.body = success(userData)
+        const [userData, isCreate] = await DBModel[DBType].findOrCreate({
+            where: { idNumber: postData.idNumber },
+            default: postData
+        })
+        ctx.body = error(isCreate ? userData : `${postData.idNumber}已存在`)
     } catch (err) {
         ctx.body = error(err)
     }
