@@ -8,4 +8,6 @@ export default definModel('system_user', {
     idNumber: DataTypes.STRING(100),
     phone: DataTypes.STRING(100),
     type: DataTypes.INTEGER(),
+    auth_menu: DataTypes.STRING(255),
+    auth_btn: DataTypes.STRING(255)
 })

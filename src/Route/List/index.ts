@@ -10,11 +10,21 @@ router.post('/', async (ctx: any) => {
         const DBType = MapDB[type]
         const userData = await DBModel[DBType].findAll({
             attributes: {
-                exclude: ['createdAt', 'password', 'updatedAt', 'type']
+                exclude: ['createdAt', 'password', 'updatedAt', 'type', 'operator']
             },
             order: [['createdAt', 'DESC']]
         })
-        ctx.body = success({ head: List[type], data: userData })
+        if (DBModel[DBModel] === "system_user") {
+            const postData = userData.map((user: any) => {
+                if(userData.auth_btn === "all"){
+
+                }else{
+                    const btnAuth: Array<string> = userData.auth_btn.split(',')
+                }
+            })
+        } else {
+            ctx.body = success({ head: List[type], data: userData })
+        }
     } catch (err) {
         ctx.body = error(err)
     }

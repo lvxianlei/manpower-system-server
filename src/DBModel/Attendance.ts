@@ -8,4 +8,5 @@ export default definModel('attendance', {
     idNumber: DataTypes.STRING(100),
     phone: DataTypes.STRING(100),
     type: DataTypes.INTEGER(),
+    operator: DataTypes.STRING(100)
 })
