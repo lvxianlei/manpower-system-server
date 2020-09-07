@@ -28,6 +28,7 @@ router.post('/', async (ctx: any) => {
 })
 
 router.post('/upload', async (ctx: any) => {
+    console.log('--------------')
     const data = await formatExcel(ctx.request.files)
     ctx.body = success(data)
 })
