@@ -8,8 +8,4 @@ const Buttons: any = {
         { name: '分配权限', type: 'edit', option: 'array' }]
 }
 
-const chooseButton = (type: number) => {
-    
-}
-
 export default Buttons

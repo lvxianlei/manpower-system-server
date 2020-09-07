@@ -4,6 +4,7 @@ import * as JWT from 'koa-jwt'
 import * as jsonwebtoken from 'jsonwebtoken'
 import * as cors from 'koa2-cors' //跨域
 import { error as errorCode } from './Message'
+import { SystemUser } from './DBModel'
 import router from './Route'
 const SECRET = 'manpower-admin'
 const app = new Koa();
@@ -34,7 +35,16 @@ app.use(JWT({ secret: SECRET }).unless({ path: [/\/login/] }))
 
 app.use(async (ctx: any, next) => {
     if (ctx.path !== '/login') {
-        ctx.operator = ctx.header.authorization
+        const operator: any = jsonwebtoken.decode(ctx.header.authorization.split(' ')[1])
+        const user = await SystemUser.findOne({
+            attributes: {
+                exclude: ['createdAt', 'updatedAt']
+            },
+            where: {
+                id: operator.id
+            }
+        })
+        ctx.operator = user.toJSON()
     }
     ctx.data = ctx.request.body
     ctx.response.heades = 'application/json; charset=utf-8'

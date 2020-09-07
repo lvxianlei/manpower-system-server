@@ -1,4 +1,7 @@
 import { readFile, stream, utils } from 'xlsx'
+
+export { fromAuthToBtn } from '../CommenJSON/Auth'
+
 export const formatExcel = async (xlsx: any) => {
     try {
         const workFile = await readFile(xlsx.file.path, { type: 'buffer' })

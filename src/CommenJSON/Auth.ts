@@ -1,8 +1,11 @@
+import Buttons from './Buttons'
+
 export const Auth_Menu: any = {
     all: '管理员',
     user_info: "人员信息",
     attendance: "考勤",
-    achievements: "绩效"
+    achievements: "绩效",
+    system_user: "系统管理"
 }
 
 export const Auth_Btn: any = {
@@ -12,3 +15,8 @@ export const Auth_Btn: any = {
     approve: '审批'
 }
 
+type Auth = "all" | "user_info" | "attendance" | "achievements"
+
+export const fromAuthToBtn = (btn: Auth) => {
+    return Buttons[btn]
+}

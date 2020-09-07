@@ -1,7 +1,7 @@
 import * as Router from 'koa-router'
-import { SystemUser } from '../../DBModel'
+import { SystemUser } from '../DBModel'
 import * as jsonwebtoken from 'jsonwebtoken'
-import { success } from '../../Message'
+import { success } from '../Message'
 const router = new Router()
 const SECRET = 'manpower-admin'
 
