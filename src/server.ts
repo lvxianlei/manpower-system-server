@@ -12,6 +12,7 @@ app.use(cors())
 
 app.use(koaBody({
     multipart: true,
+    strict: false,
     formidable: {
         maxFileSize: 200 * 1024 * 1024
     }
@@ -35,16 +36,20 @@ app.use(JWT({ secret: SECRET }).unless({ path: [/\/login/] }))
 
 app.use(async (ctx: any, next) => {
     if (ctx.path !== '/login') {
-        const operator: any = jsonwebtoken.decode(ctx.header.authorization.split(' ')[1])
-        const user = await SystemUser.findOne({
-            attributes: {
-                exclude: ['createdAt', 'updatedAt']
-            },
-            where: {
-                id: operator.id
-            }
-        })
-        ctx.operator = user.toJSON()
+        try {
+            const operator: any = jsonwebtoken.decode(ctx.header.authorization.split(' ')[1])
+            const user = await SystemUser.findOne({
+                attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                },
+                where: {
+                    id: operator.id
+                }
+            })
+            ctx.operator = user.toJSON()
+        } catch (error) {
+            console.log(error)
+        }
     }
     ctx.data = ctx.request.body
     ctx.response.heades = 'application/json; charset=utf-8'
