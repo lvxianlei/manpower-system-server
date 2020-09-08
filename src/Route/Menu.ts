@@ -13,7 +13,7 @@ router.post('/', async (ctx: any) => {
             const menuData = menu.map((item: string) => (Menu[item]))
             ctx.body = success(menuData)
         } else {
-            ctx.body = error("暂无任何权限，请联系管理员", 3)
+            ctx.body = error("暂无任何权限，请联系管理员", 0)
         }
     } catch (err) {
         ctx.body = error(err)

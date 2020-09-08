@@ -6,6 +6,7 @@ const router = new Router()
 router.post('/', async (ctx: any) => {
     try {
         const { type, id } = ctx.data
+        if (!type || !id) { throw "type and id are required !!!" }
         const DBType = MapDB[type]
         const editData = await DBModel[DBType].findOne({
             where: { id },
@@ -22,6 +23,7 @@ router.post('/', async (ctx: any) => {
 router.put('/', async (ctx: any) => {
     try {
         const { type, id } = ctx.data
+        if (!type) { throw "type is required !!!" }
         const DBType = MapDB[type]
         const option: Array<any> = Edit[type]
         const postData: any = {}
@@ -48,6 +50,7 @@ router.put('/', async (ctx: any) => {
 router.delete('/', async (ctx: any) => {
     try {
         const { id, type } = ctx.data
+        if (!id || !type) { throw "id and type are required !!!" }
         const DBType = MapDB[type]
         const deleteInfo = await DBModel[DBType].destroy({ where: { id } })
         ctx.body = success(deleteInfo)

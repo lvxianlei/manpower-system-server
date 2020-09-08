@@ -12,7 +12,7 @@ app.use(cors())
 
 app.use(koaBody({
     multipart: true,
-    strict: false,
+    parsedMethods: ['POST', 'PUT', 'DELETE', 'PATCH'],
     formidable: {
         maxFileSize: 200 * 1024 * 1024
     }
