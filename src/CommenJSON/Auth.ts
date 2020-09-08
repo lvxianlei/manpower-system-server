@@ -5,7 +5,8 @@ export const Auth_Menu: any = {
     user_info: "人员信息",
     attendance: "考勤",
     achievements: "绩效",
-    system_user: "系统管理"
+    system_user: "系统管理",
+    pay_card: "工资卡信息",
 }
 
 export const Auth_Btn: any = {
