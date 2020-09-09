@@ -1,19 +1,10 @@
 import { sequelize } from './ConfigDB'
-import SystemUser from './DBModel/SystemUser'
+import DBModel from './DBModel'
 (async () => {
     try {
-        sequelize.sync({force: true})
-       
-        // SystemUser.create({
-        //     username: 'admin',
-        //     password: '123456',
-        //     email: 'aaa',
-        //     idNumber: 'testestestest',
-        //     phone: '13211551155',
-        //     type: 1,
-        //     auth_menu: 'all',
-        //     auth_btn: 'all'
-        // })
+        Object.keys(DBModel).forEach((item: string) => {
+            DBModel[item].sync()
+        })
     } catch (err) {
         throw new Error(err)
     }

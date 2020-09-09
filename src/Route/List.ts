@@ -15,11 +15,12 @@ router.post('/', async (ctx: any) => {
             },
             order: [['createdAt', 'DESC']]
         })
-
+        console.log(userData,'-----')
         if (ctx.operator.type === 1) {
             const postData = userData.map((user: any) => ({ ...user.toJSON(), pageButton: fromAuthToBtn(type) }))
             ctx.body = success({ head: List[type], data: postData })
         } else {
+
             ctx.body = success({ head: List[type], data: userData })
         }
     } catch (err) {
