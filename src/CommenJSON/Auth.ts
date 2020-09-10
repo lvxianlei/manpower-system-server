@@ -13,11 +13,13 @@ export const Auth_Btn: any = {
     all: '所有',
     edit: '编辑',
     look: '查看',
-    approve: '审批'
+    approve: '审批',
+    delete: '删除',
 }
 
-type Auth = "all" | "user_info" | "attendance" | "achievements"
+type Auth = "all" | "user_info" | "attendance" | "achievements" | "pay_card"
 
 export const fromAuthToBtn = (btn: Auth) => {
     return Buttons[btn]
 }
+

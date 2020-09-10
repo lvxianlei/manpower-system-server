@@ -2,7 +2,7 @@ const Edit: any = {
     system_setting: [
         { name: "username", label: "姓名", type: "text" },
         { name: "email", label: "邮箱", type: "mentions", prefix: '@', option: ['afc163', 'zombiej', 'yesmeck'] },
-        { name: "idNumber", label: "身份证号", type: "text" },
+        { name: "id_number", label: "身份证号", type: "text" },
         { name: "phone", label: "手机号", type: "phone" }
     ],
     user_info: [
@@ -32,15 +32,28 @@ const Edit: any = {
     attendance: [
         { name: "username", label: "姓名", type: "text" },
         { name: "email", label: "邮箱", type: "mentions", prefix: '@', option: ['afc163', 'zombiej', 'yesmeck'] },
-        { name: "idNumber", label: "身份证号", type: "text" },
+        { name: "id_number", label: "身份证号", type: "text" },
         { name: "phone", label: "手机号", type: "phone" },
     ],
     achievements: [
         { name: "username", label: "姓名", type: "text" },
         { name: "email", label: "邮箱", type: "mentions" },
-        { name: "idNumber", label: "身份证号", type: "text" },
+        { name: "id_number", label: "身份证号", type: "text" },
         { name: "phone", label: "手机号", type: "phone" }
     ],
+    auth_menu: [
+        { name: 'user_info', label: '人员信息', type: "switch" },
+        { name: 'attendance', label: '考勤', type: "switch" },
+        { name: 'achievements', label: '绩效', type: "switch" },
+        { name: 'pay_card', label: '工资卡信息', type: "switch" },
+        { name: 'system_user', label: '系统管理', type: "switch" }
+    ],
+    auth_btn: [
+        { name: 'edit', label: '编辑', type: "switch" },
+        { name: 'delete', label: '删除', type: "switch" },
+        { name: 'look', label: '查看', type: "switch" },
+        { name: 'approve', label: '审批', type: "switch" }
+    ]
 }
 
 export default Edit

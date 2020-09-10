@@ -7,20 +7,17 @@ const router = new Router()
 router.post('/', async (ctx: any) => {
     try {
         const { type } = ctx.data
-        const { auth_btn, auth_menu } = ctx.operator
-        const DBType = MapDB[type]
+        const DBType = type === "pay_card" ? MapDB.user_info : MapDB[type]
         const userData = await DBModel[DBType].findAll({
             attributes: {
                 exclude: ['createdAt', 'password', 'updatedAt', 'type', 'operator', 'auth_btn', 'auth_menu']
             },
             order: [['createdAt', 'DESC']]
         })
-        console.log(userData,'-----')
         if (ctx.operator.type === 1) {
             const postData = userData.map((user: any) => ({ ...user.toJSON(), pageButton: fromAuthToBtn(type) }))
             ctx.body = success({ head: List[type], data: postData })
         } else {
-
             ctx.body = success({ head: List[type], data: userData })
         }
     } catch (err) {

@@ -25,20 +25,30 @@ const List: any = {
     attendance: [
         { name: "username", label: "考勤", type: "string" },
         { name: "email", label: "邮箱", type: "string" },
-        { name: "idNumber", label: "身份证号", type: "string" },
+        { name: "id_number", label: "身份证号", type: "string" },
         { name: "phone", label: "手机号", type: "string" }
     ],
     achievements: [
         { name: "username", label: "绩效", type: "string" },
         { name: "email", label: "邮箱", type: "string" },
-        { name: "idNumber", label: "身份证号", type: "string" },
+        { name: "id_number", label: "身份证号", type: "string" },
         { name: "phone", label: "手机号", type: "string" }
     ],
     system_setting: [
         { name: "username", label: "姓名", type: "string" },
         { name: "email", label: "邮箱", type: "string" },
-        { name: "idNumber", label: "身份证号", type: "string" },
+        { name: "id_number", label: "身份证号", type: "string" },
         { name: "phone", label: "手机号", type: "string" }
+    ],
+    pay_card: [
+        { name: "username", label: "人员姓名", type: "string" },
+        { name: "division", label: "单位", type: "string" },
+        { name: "department", label: "部门", type: "string" },
+        { name: "id_number", label: "身份证号码", type: "string" },
+        { name: "phone", label: "电话号码", type: "string" },
+        { name: "pay_card_hz", label: "汇泽银行卡", type: "string" },
+        { name: "pay_card_zg", label: "中国银行卡号", type: "string" },
+        { name: "pay_card_address", label: "开户行地址", type: "string" },
     ]
 }
 

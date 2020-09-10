@@ -40,15 +40,16 @@ router.put('/', async (ctx: any) => {
         } else {
             postData.password = '123456'
             postData.type = '2'
+            postData.auth_btn = 'user_info'
+            postData.auth_menu = 'user_info'
             postData.operator = ctx.operator.id
             const [userData, isCreate] = await DBModel[DBType].findCreateFind({
                 where: { id_number: postData.id_number },
                 defaults: postData
             })
-            ctx.body = isCreate ? success(userData) : error(`${postData.idNumber}已存在`)
+            ctx.body = isCreate ? success(userData) : error(`${postData.id_number}已存在`)
         }
     } catch (err) {
-        console.log('----Error--------', err)
         ctx.body = error(err)
     }
 })
