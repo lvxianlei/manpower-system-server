@@ -45,6 +45,8 @@ router.put('/', async (ctx: any) => {
         if (auth_menu && auth_btn && id && auth_menu !== 'undefined' && auth_btn !== 'undefined' && id !== 'undefined') {
             const updateData = await SystemUser.update({ auth_menu, auth_btn }, { where: { id } })
             ctx.body = success("保存成功")
+        } else {
+            ctx.body = error("数据不能为空！！")
         }
     } catch (err) {
         ctx.body = error(err)
