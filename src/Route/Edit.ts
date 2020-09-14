@@ -60,7 +60,7 @@ router.delete('/', async (ctx: any) => {
         if (!id || !type) { throw "id and type are required !!!" }
         const DBType = MapDB[type]
         const deleteInfo = await DBModel[DBType].destroy({ where: { id } })
-        ctx.body = success(deleteInfo)
+        ctx.body = deleteInfo ? success({ id: Number(id) }) : error("数据不存在...")
     } catch (error) {
         ctx.body = error(error)
     }

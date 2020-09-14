@@ -1,6 +1,6 @@
 import { DataTypes } from 'sequelize'
 import { definModel } from '../ConfigDB'
-
+// 绩效
 export default definModel('achievements', {
     username: DataTypes.STRING(100),
     password: DataTypes.STRING(100),

@@ -20,6 +20,6 @@ export const Auth_Btn: any = {
 type Auth = "all" | "user_info" | "attendance" | "achievements" | "pay_card"
 
 export const fromAuthToBtn = (btn: Auth) => {
-    return Buttons[btn]
+    return btn === 'pay_card' ? Buttons.user_info : Buttons[btn]
 }
 

@@ -4,6 +4,7 @@ import DBModel from '../DBModel'
 import { List, MapDB } from '../CommenJSON'
 import { success, error } from '../Message'
 import { fromAuthToBtn } from '../Util'
+import { sequelize } from '../ConfigDB'
 const router = new Router()
 router.post('/', async (ctx: any) => {
     try {
@@ -46,13 +47,22 @@ router.post('/upload', async (ctx: any) => {
                     const headData: any = head.filter((headItem: any) => headItem.label === jsonKey)[0]
                     if (headData) {
                         formatItem[headData.name] = json[jsonKey]
+                        formatItem.status = 1
+                        formatItem.operator = ctx.operator.id
                     }
                 })
                 return formatItem
             })
-            const updateData = await DBModel[DBType].bulkCreate(formatJson)
-            console.log(updateData)
-            ctx.body = success(updateData)
+            const bulkCreateOrUpdate = await sequelize.transaction((t1) => {
+                const xlxsActions = formatJson.map((action: any) => DBModel[DBType].findCreateFind({
+                    where: { username: action.username, id_number: action.id_number },
+                    defaults: action
+                }, { transaction: t1 }))
+                return Promise.all(xlxsActions)
+            })
+            console.log(bulkCreateOrUpdate, '-----------')
+            // const updateData = await DBModel[DBType].bulkCreate(formatJson, { returning: true })
+            // ctx.body = success(updateData.map((data: any) => ({ ...data.toJSON(), pageButton: fromAuthToBtn(type) })))
         } else {
             ctx.body = error(`只支持上传['xlsx','xls']文件`)
         }
