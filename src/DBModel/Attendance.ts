@@ -3,7 +3,8 @@ import { definModel } from '../ConfigDB'
 import User from './User'
 //  考勤
 const Attendance = definModel('attendance', {
-    operator: DataTypes.STRING(100)
+    operator: DataTypes.STRING(100),
+    record_date: DataTypes.DATE()
 })
 
 User.hasOne(Attendance, {

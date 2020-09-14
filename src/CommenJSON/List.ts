@@ -1,3 +1,4 @@
+import { nationOption } from './Edit'
 const List: any = {
     user_info: [
         { name: "division", label: "事业部", type: "option", option: [] },
@@ -8,7 +9,7 @@ const List: any = {
         { name: "gender", label: "性别", type: "select", option: [{ name: 1, label: '男' }, { name: 2, label: '女' }] },
         { name: "birth", label: "出生年月", type: "time" },
         { name: "descent", label: "籍贯", type: "text" },
-        { name: "nation", label: "民族", type: "option", option: [] },
+        { name: "nation", label: "民族", type: "option", option: nationOption },
         { name: "education", label: "文化程度", type: "option", option: [] },
         { name: "graduation_school", label: "毕业学校", type: "text" },
         { name: "major", label: "专业", type: "phone" },

@@ -53,16 +53,16 @@ router.post('/upload', async (ctx: any) => {
                 })
                 return formatItem
             })
-            const bulkCreateOrUpdate = await sequelize.transaction((t1) => {
-                const xlxsActions = formatJson.map((action: any) => DBModel[DBType].findCreateFind({
-                    where: { username: action.username, id_number: action.id_number },
-                    defaults: action
-                }, { transaction: t1 }))
-                return Promise.all(xlxsActions)
+            const bulkCreateOrUpdate = await sequelize.transaction(function (t1) {
+                return sequelize.transaction((t2) => {
+                    const xlxsActions = formatJson.map((action: any) => DBModel[DBType].findCreateFind({
+                        where: { username: action.username, id_number: action.id_number },
+                        defaults: action
+                    }, { transaction: t1 }))
+                    return Promise.all(xlxsActions)
+                })
             })
-            console.log(bulkCreateOrUpdate, '-----------')
-            // const updateData = await DBModel[DBType].bulkCreate(formatJson, { returning: true })
-            // ctx.body = success(updateData.map((data: any) => ({ ...data.toJSON(), pageButton: fromAuthToBtn(type) })))
+            ctx.body = success(bulkCreateOrUpdate.map((data: any) => ({ ...data[0].toJSON(), pageButton: fromAuthToBtn(type) })))
         } else {
             ctx.body = error(`只支持上传['xlsx','xls']文件`)
         }

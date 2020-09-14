@@ -1,7 +1,8 @@
 import { DataTypes } from 'sequelize'
 import { definModel } from '../ConfigDB'
+import User from './User'
 // 绩效
-export default definModel('achievements', {
+const Achievements = definModel('achievements', {
     username: DataTypes.STRING(100),
     password: DataTypes.STRING(100),
     email: DataTypes.STRING(100),
@@ -10,3 +11,16 @@ export default definModel('achievements', {
     type: DataTypes.INTEGER(),
     operator: DataTypes.STRING(100)
 })
+
+User.hasOne(Achievements, {
+    foreignKey: {
+        name: 'id'
+    }
+})
+Achievements.belongsTo(User, {
+    foreignKey: {
+        name: 'user_id'
+    }
+})
+
+export default Achievements
