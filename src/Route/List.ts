@@ -9,7 +9,8 @@ const router = new Router()
 router.post('/', async (ctx: any) => {
     try {
         const { type } = ctx.data
-        const DBType = type === "pay_card" ? MapDB.user_info : MapDB[type]
+        const DBType = MapDB[type]
+        if (!DBType) throw "type does not exist... ";
         const userData = await DBModel[DBType].findAll({
             attributes: {
                 exclude: ['createdAt', 'password', 'updatedAt', 'type', 'operator', 'auth_btn', 'auth_menu']

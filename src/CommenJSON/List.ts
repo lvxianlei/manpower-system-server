@@ -27,10 +27,17 @@ const List: any = {
         { name: "status", label: "在职状态", type: "select", option: [{ name: '1', label: '在职' }, { name: '2', label: '离职' }] }
     ],
     attendance: [
-        { name: "username", label: "考勤", type: "string" },
-        { name: "email", label: "邮箱", type: "string" },
-        { name: "id_number", label: "身份证号", type: "string" },
-        { name: "phone", label: "手机号", type: "string" }
+        { name: "username", label: "姓名", type: "string" },
+        { name: "division", label: "事业部", type: "option", option: [] },
+        { name: "department", label: "部门", type: "select", option: [] },
+        { name: "position", label: "职务", type: "select", option: [] },
+        { name: "attendance", label: "出勤", type: "string" },
+        { name: "business_leave", label: "事假", type: "string" },
+        { name: "disease_leave", label: "病假", type: "string" },
+        { name: "public_holidays", label: "公休假日", type: "string" },
+        { name: "legal_holiday", label: "法定假日", type: "string" },
+        { name: "work_home", label: "在家办公", type: "string" },
+        { name: "remark", label: "备注", type: "text" }
     ],
     achievements: [
         { name: "username", label: "绩效", type: "string" },

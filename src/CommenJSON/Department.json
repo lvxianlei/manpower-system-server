@@ -1,6 +1,14 @@
-{
-    "name": "server",
-    "version": "1.0.0",
-    "main": "server.js",
-    "license": "MIT"
-}
+[
+    {
+        "name": "1",
+        "label": "财务部"
+    },
+    {
+        "name": "2",
+        "label": "信息部"
+    },
+    {
+        "name": "3",
+        "label": "运输部"
+    }
+]
