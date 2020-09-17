@@ -1,3 +1,5 @@
+import * as fs from 'fs'
+import { resolve } from 'path'
 import * as Router from 'koa-router'
 import { readFile, utils } from 'xlsx'
 import DBModel from '../DBModel'
@@ -9,19 +11,24 @@ const router = new Router()
 router.post('/', async (ctx: any) => {
     try {
         const { type } = ctx.data
+        if (!type) throw "type does not exist... ";
         const DBType = MapDB[type]
-        if (!DBType) throw "type does not exist... ";
-        const userData = await DBModel[DBType].findAll({
-            attributes: {
-                exclude: ['createdAt', 'password', 'updatedAt', 'type', 'operator', 'auth_btn', 'auth_menu']
-            },
-            order: [['createdAt', 'DESC']]
-        })
-        if (ctx.operator.type === 1) {
-            const postData = userData.map((user: any) => ({ ...user.toJSON(), pageButton: fromAuthToBtn(type) }))
-            ctx.body = success({ head: List[type], data: postData })
-        } else {
-            ctx.body = success({ head: List[type], data: userData })
+        if (DBType) {
+            const userData = await DBModel[DBType].findAll({
+                attributes: {
+                    exclude: ['createdAt', 'password', 'updatedAt', 'type', 'operator', 'auth_btn', 'auth_menu']
+                },
+                order: [['createdAt', 'DESC']]
+            })
+            if (ctx.operator.type === 1) {
+                const postData = userData.map((user: any) => ({ ...user.toJSON(), pageButton: fromAuthToBtn(type) }))
+                ctx.body = success({ head: List[type], data: postData })
+            } else {
+                ctx.body = success({ head: List[type], data: userData })
+            }
+        } else if (type === 'department_setting') {
+            const departmentData = fs.readFileSync(resolve(__dirname, '../CommenJSON/Department.json')).toString()
+            ctx.body = success({ data: JSON.parse(departmentData) })
         }
     } catch (err) {
         ctx.body = error(err)
