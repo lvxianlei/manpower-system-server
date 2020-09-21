@@ -17,7 +17,7 @@ const Attendance = definModel('attendance', {
     operator: DataTypes.STRING(100),
 })
 
-User.hasOne(Attendance, {
+User.hasMany(Attendance, {
     foreignKey: {
         name: 'id'
     }

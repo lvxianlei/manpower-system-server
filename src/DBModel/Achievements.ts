@@ -12,7 +12,7 @@ const Achievements = definModel('achievements', {
     operator: DataTypes.STRING(100)
 })
 
-User.hasOne(Achievements, {
+User.hasMany(Achievements, {
     foreignKey: {
         name: 'id'
     }

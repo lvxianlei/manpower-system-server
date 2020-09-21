@@ -2,7 +2,7 @@ import * as fs from 'fs'
 import { resolve } from 'path'
 import * as Router from 'koa-router'
 import { readFile, utils } from 'xlsx'
-import DBModel from '../DBModel'
+import DBModel, { User, Attendance, PayCard, Achievements } from '../DBModel'
 import { List, MapDB } from '../CommenJSON'
 import { success, error } from '../Message'
 import { fromAuthToBtn, formatXLXS } from '../Util'
@@ -40,7 +40,6 @@ router.post('/upload', async (ctx: any) => {
         const { type } = ctx.data
         if (!type || type === "undefined") throw "type is required..."
         const file = ctx.request.files.file
-        const DBType = type === "pay_card" ? MapDB.user_info : MapDB[type]
         const fileType = file.name.split('.')[1]
         const xlsxType = ["xlsx", "xls"]
         if (xlsxType.includes(fileType)) {
@@ -49,17 +48,85 @@ router.post('/upload', async (ctx: any) => {
             const worksheet = workFile.Sheets[first_sheet_name]
             const sheetJson = utils.sheet_to_json(worksheet)
             const formatJson = formatXLXS(sheetJson, type)
-            console.log(formatJson, '----------')
-            const bulkCreateOrUpdate = await sequelize.transaction(function (t1) {
-                return sequelize.transaction((t2) => {
-                    const xlxsActions = formatJson.map((action: any) => DBModel[DBType].findCreateFind({
-                        where: { username: action.username, id_number: action.id_number },
-                        defaults: { ...action, operator: ctx.operator.id }
-                    }, { transaction: t1 }))
-                    return Promise.all(xlxsActions)
-                })
-            })
-            ctx.body = success(bulkCreateOrUpdate.map((data: any) => ({ ...data[0].toJSON(), pageButton: fromAuthToBtn(type) })))
+            switch (type) {
+                case 'user_info':
+                    const bulkCreateOrUpdate = await sequelize.transaction(function (t1) {
+                        return sequelize.transaction((t2) => {
+                            const xlxsActions = formatJson.map((action: any) => User.findCreateFind({
+                                where: { username: action.username, id_number: action.id_number },
+                                defaults: { ...action, operator: ctx.operator.id }
+                            }))
+                            return Promise.all(xlxsActions)
+                        })
+                    })
+                    ctx.body = success(bulkCreateOrUpdate.map((data: any) => ({ ...data[0].toJSON(), pageButton: fromAuthToBtn(type) })))
+                    return
+                case 'attendance':
+                    const attendance_bulkCreateOrUpdate = await sequelize.transaction(function (t1) {
+                        return sequelize.transaction((t2) => {
+                            const xlxsActions = formatJson.map((action: any) => User.findCreateFind({
+                                where: {
+                                    username: action.username,
+                                    division: action.division,
+                                    department: action.department,
+                                    position: action.position
+                                },
+                                include: Attendance,
+                                defaults: { ...action, operator: ctx.operator.id }
+                            }))
+                            return Promise.all(xlxsActions)
+                        })
+                    })
+                    ctx.body = success(attendance_bulkCreateOrUpdate.map((data: any) => ({
+                        ...data[0].toJSON(),
+                        pageButton: fromAuthToBtn(type)
+                    })))
+                    return
+                case 'achievements':
+                    const achievements_bulkCreateOrUpdate = await sequelize.transaction(function (t1) {
+                        return sequelize.transaction((t2) => {
+                            const xlxsActions = formatJson.map((action: any) => User.findCreateFind({
+                                where: {
+                                    username: action.username,
+                                    division: action.division,
+                                    department: action.department,
+                                    position: action.position
+                                },
+                                include: [User],
+                                defaults: { ...action, operator: ctx.operator.id }
+                            }))
+                            return Promise.all(xlxsActions)
+                        })
+                    })
+                    ctx.body = success(achievements_bulkCreateOrUpdate.map((data: any) => ({
+                        ...data[0].toJSON(),
+                        pageButton: fromAuthToBtn(type)
+                    })))
+                    return
+                case 'pay_card':
+                    const pay_card_bulkCreateOrUpdate = await sequelize.transaction(function (t1) {
+                        return sequelize.transaction((t2) => {
+                            const xlxsActions = formatJson.map((action: any) => User.findCreateFind({
+                                where: {
+                                    username: action.username,
+                                    division: action.division,
+                                    department: action.department,
+                                    position: action.position
+                                },
+                                include: [User],
+                                defaults: { ...action, operator: ctx.operator.id }
+                            }))
+                            return Promise.all(xlxsActions)
+                        })
+                    })
+                    ctx.body = success(pay_card_bulkCreateOrUpdate.map((data: any) => ({
+                        ...data[0].toJSON(),
+                        pageButton: fromAuthToBtn(type)
+                    })))
+                    return
+                default:
+                    ctx.body = error('type does not exist...')
+            }
         } else {
             ctx.body = error(`只支持上传['xlsx','xls']文件`)
         }

@@ -9,7 +9,7 @@ const PayCard = definModel('pay_card', {
     pay_card_address: DataTypes.STRING(100),
 })
 
-User.hasOne(PayCard, {
+User.hasMany(PayCard, {
     foreignKey: {
         name: 'id'
     }
