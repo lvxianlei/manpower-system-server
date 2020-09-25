@@ -27,7 +27,7 @@ router.post('/', async (ctx: any) => {
             })
             ctx.body = success({
                 auth_menu: Edit.auth_menu,
-                auth_btn: Edit.auth_btn,
+                auth_btn: Edit.auth_btn || '',
                 auth_department: Edit.auth_department,
                 id: editData.id,
                 data: formatAuthData(editData.auth_btn, editData.auth_menu)

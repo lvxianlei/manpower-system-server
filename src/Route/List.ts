@@ -39,12 +39,11 @@ router.post('/', async (ctx: any) => {
                     group: ['User.username', 'User.division', 'User.department', 'User.position', 'user_id'],
                     raw: true
                 })
-                if (ctx.operator.type === 1) {
-                    const postData = attendanceData.map((user: any) => ({ ...user, pageButton: fromAuthToBtn(type) }))
-                    ctx.body = success({ head: List[type], data: postData })
-                } else {
-                    ctx.body = success({ head: List[type], data: attendanceData })
-                }
+                const postData = attendanceData.map((user: any) => ({
+                    ...user,
+                    pageButton: fromAuthToBtn(ctx.operator.auth_btn.split(','), type)
+                }))
+                ctx.body = success({ head: List[type], data: postData })
                 return;
             default:
                 const userData = await DBModel[DBType].findAll({
@@ -53,12 +52,11 @@ router.post('/', async (ctx: any) => {
                     },
                     order: [['createdAt', 'DESC']]
                 })
-                if (ctx.operator.type === 1) {
-                    const postData = userData.map((user: any) => ({ ...user.toJSON(), pageButton: fromAuthToBtn(type) }))
-                    ctx.body = success({ head: List[type], data: postData })
-                } else {
-                    ctx.body = success({ head: List[type], data: userData })
-                }
+                const selfData = userData.map((user: any) => ({
+                    ...user.toJSON(),
+                    pageButton: fromAuthToBtn(ctx.operator.auth_btn.split(','), type)
+                }))
+                ctx.body = success({ head: List[type], data: selfData })
                 return;
         }
     } catch (err) {
@@ -90,7 +88,7 @@ router.post('/upload', async (ctx: any) => {
                             return Promise.all(xlxsActions)
                         })
                     })
-                    ctx.body = success(bulkCreateOrUpdate.map((data: any) => ({ ...data[0].toJSON(), pageButton: fromAuthToBtn(type) })))
+                    ctx.body = success(bulkCreateOrUpdate.map((data: any) => ({ ...data[0].toJSON(), pageButton: fromAuthToBtn(ctx.operator.auth_btn.split(','), type) })))
                     return
                 case 'attendance':
                     const xlxsAction_ids = formatJson.map((action: any) => User.findOne({
@@ -135,7 +133,7 @@ router.post('/upload', async (ctx: any) => {
                         raw: true
                     })
                     ctx.body = success(attendance_post.map((data: any) => ({
-                        ...data, pageButton: fromAuthToBtn(type)
+                        ...data, pageButton: fromAuthToBtn(ctx.operator.auth_btn.split(','), type)
                     })))
                     return
                 case 'achievements':
@@ -156,7 +154,7 @@ router.post('/upload', async (ctx: any) => {
                     })
                     ctx.body = success(achievements_bulkCreateOrUpdate.map((data: any) => ({
                         ...data[0].toJSON(),
-                        pageButton: fromAuthToBtn(type)
+                        pageButton: fromAuthToBtn(ctx.operator.auth_btn.split(','), type)
                     })))
                     return
                 case 'pay_card':
@@ -177,7 +175,7 @@ router.post('/upload', async (ctx: any) => {
                     })
                     ctx.body = success(pay_card_bulkCreateOrUpdate.map((data: any) => ({
                         ...data[0].toJSON(),
-                        pageButton: fromAuthToBtn(type)
+                        pageButton: fromAuthToBtn(ctx.operator.auth_btn.split(','), type)
                     })))
                     return
                 default:

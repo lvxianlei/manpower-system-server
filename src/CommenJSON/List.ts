@@ -1,5 +1,5 @@
 interface Nation {
-    name: number;
+    name: number | string;
     label: string;
 }
 
@@ -20,6 +20,16 @@ export const nationOption: Array<Nation> = [
     { name: 53, label: '塔塔尔' }, { name: 54, label: '赫哲' }, { name: 55, label: '珞巴' }, { name: 56, label: '布朗' },
 ]
 
+export const educationOption: Array<Nation> = [
+    { name: 1, label: '小学' }, { name: 2, label: '初中' }, { name: 2, label: '中专' },
+    { name: 3, label: '高中' }, { name: 4, label: '大专' }, { name: 5, label: '本科' },
+    { name: 6, label: '研究生' }
+]
+
+export const statusOption: Array<Nation> = [{ name: 1, label: '在职' }, { name: 2, label: '离职' }]
+
+export const genderOption: Array<Nation> = [{ name: 1, label: '在职' }, { name: 2, label: '离职' }]
+
 const List: any = {
     user_info: [
         { name: "division", label: "事业部", type: "select", option: [] },
@@ -27,11 +37,11 @@ const List: any = {
         { name: "position", label: "职务", type: "select", option: [] },
         { name: "username", label: "姓名", type: "string" },
         { name: "rank", label: "职级", type: "select", option: [] },
-        { name: "gender", label: "性别", type: "select", option: [{ name: 1, label: '男' }, { name: 2, label: '女' }] },
+        { name: "gender", label: "性别", type: "select", option: genderOption },
         { name: "birth", label: "出生年月", type: "time", format: 'YYYY-MM-DD' },
         { name: "descent", label: "籍贯", type: "string" },
         { name: "nation", label: "民族", type: "select", option: nationOption },
-        { name: "education", label: "文化程度", type: "select", option: [] },
+        { name: "education", label: "文化程度", type: "select", option: educationOption },
         { name: "graduation_school", label: "毕业学校", type: "string" },
         { name: "major", label: "专业", type: "select" },
         { name: "political_face", label: "政治面貌", type: "select", },
@@ -45,7 +55,7 @@ const List: any = {
         { name: "experience", label: "我公司经历", type: "text" },
         { name: "remarks", label: "备注", type: "text" },
         { name: "age", label: "年龄", type: "number" },
-        { name: "status", label: "在职状态", type: "select", option: [{ name: '1', label: '在职' }, { name: '2', label: '离职' }] }
+        { name: "status", label: "在职状态", type: "select", option: statusOption }
     ],
     attendance: [
         { name: "username", label: "姓名", type: "string" },

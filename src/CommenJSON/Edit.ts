@@ -53,9 +53,9 @@ const Edit: any = {
         { name: 'system_user', label: '系统管理', type: "switch" }
     ],
     auth_btn: [
+        { name: 'look', label: '查看', type: "switch" },
         { name: 'edit', label: '编辑', type: "switch" },
         { name: 'delete', label: '删除', type: "switch" },
-        { name: 'look', label: '查看', type: "switch" },
         { name: 'approve', label: '审批', type: "switch" }
     ],
     auth_department: [

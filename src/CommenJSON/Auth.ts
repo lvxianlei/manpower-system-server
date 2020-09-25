@@ -10,16 +10,23 @@ export const Auth_Menu: any = {
 }
 
 export const Auth_Btn: any = {
-    all: '所有',
-    edit: '编辑',
     look: '查看',
+    edit: '编辑',
     approve: '审批',
     delete: '删除',
+    all: '所有'
 }
 
-type Auth = "all" | "user_info" | "attendance" | "achievements" | "pay_card"
+type Auth = "all" | "edit" | "look" | "approve" | "delete"
 
-export const fromAuthToBtn = (btn: Auth) => {
-    return btn === 'pay_card' ? Buttons.user_info : Buttons[btn]
+type MenuType = "all" | "user_info" | "attendance" | "achievements" | "pay_card"
+
+export const fromAuthToBtn = (btn: Array<Auth>, type: MenuType) => {
+    if (btn[0] === 'all') {
+        return Buttons[type]
+    } else {
+        return Buttons[type].filter((btnType: any) => btn.includes(btnType.type))
+    }
 }
+
 

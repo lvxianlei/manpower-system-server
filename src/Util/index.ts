@@ -63,3 +63,6 @@ export const formatXLXS = (sheetJSON: Array<any>, type: XLXS_type) => {
     }
     return type_sheetJSON[type](sheetJSON)
 }
+
+
+export const validatePhoneCode = (phone: string) => /^1[34578]\d{9}$/.test(phone)
