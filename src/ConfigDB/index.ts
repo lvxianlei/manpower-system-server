@@ -39,12 +39,12 @@ export const definModel = (name: string, attributes: any) => {
     attrs.createdAt = {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: () => new Date
+        defaultValue: () => new Date()
     };
     attrs.updatedAt = {
         type: DataTypes.DATE,
         allowNull: false,
-        defaultValue: () => new Date
+        defaultValue: () => new Date()
     }
     return sequelize.define(name, attrs, {
         tableName: name,

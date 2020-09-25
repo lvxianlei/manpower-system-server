@@ -14,7 +14,7 @@ const Achievements = definModel('achievements', {
 
 User.hasMany(Achievements, {
     foreignKey: {
-        name: 'id'
+        name: 'user_id'
     }
 })
 Achievements.belongsTo(User, {

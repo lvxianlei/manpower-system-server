@@ -1,6 +1,6 @@
 import * as Router from 'koa-router'
 import DBModel from '../DBModel'
-import { MapDB, Edit } from '../CommenJSON'
+import { MapDB, List } from '../CommenJSON'
 import { success, error } from '../Message'
 const router = new Router()
 router.post('/', async (ctx: any) => {
@@ -15,9 +15,9 @@ router.post('/', async (ctx: any) => {
                     exclude: ['createdAt', 'password', 'updatedAt', 'type', 'operator', 'auth_btn', 'auth_menu']
                 }
             })
-            ctx.body = success({ head: Edit[type], data: editData || [] })
+            ctx.body = success({ head: List[type], data: editData || [] })
         } else {
-            ctx.body = success({ head: Edit[type], data: [] })
+            ctx.body = success({ head: List[type], data: [] })
         }
     } catch (err) {
         ctx.body = error(err)
@@ -29,7 +29,7 @@ router.put('/', async (ctx: any) => {
         const { type, id } = ctx.data
         if (!type || type === "undefined") { throw "type is required !!!" }
         const DBType = MapDB[type]
-        const option: Array<any> = Edit[type]
+        const option: Array<any> = List[type]
         const postData: any = {}
         option.forEach((oim) => {
             postData[oim.name] = ctx.data[oim.name]
@@ -57,12 +57,12 @@ router.put('/', async (ctx: any) => {
 router.delete('/', async (ctx: any) => {
     try {
         const { id, type } = ctx.data
-        if (!id || !type) { throw "id and type are required !!!" }
+        if (!id || !type || type === 'undefined' || id === 'undefined') { throw "id and type are required !!!" }
         const DBType = MapDB[type]
         const deleteInfo = await DBModel[DBType].destroy({ where: { id } })
         ctx.body = deleteInfo ? success({ id: Number(id) }) : error("数据不存在...")
-    } catch (error) {
-        ctx.body = error(error)
+    } catch (err) {
+        ctx.body = error(err)
     }
 })
 

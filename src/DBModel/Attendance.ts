@@ -13,13 +13,13 @@ import User from './User'
 
 const Attendance = definModel('attendance', {
     attendance: DataTypes.STRING(),
-    record_date: DataTypes.DATE(),
+    record_date: DataTypes.DATEONLY(),
     operator: DataTypes.STRING(100),
 })
 
 User.hasMany(Attendance, {
     foreignKey: {
-        name: 'id'
+        name: 'user_id'
     }
 })
 

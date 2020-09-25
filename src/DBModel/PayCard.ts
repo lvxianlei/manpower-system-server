@@ -11,7 +11,7 @@ const PayCard = definModel('pay_card', {
 
 User.hasMany(PayCard, {
     foreignKey: {
-        name: 'id'
+        name: 'user_id'
     }
 })
 
