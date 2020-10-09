@@ -18,7 +18,7 @@ router.post('/', async (ctx: any) => {
         switch (type) {
             case 'department_setting':
                 if (ctx.operator.type === 1) {
-                    const departmentData = fs.readFileSync(resolve(__dirname, '../CommenJSON/Department.json')).toString()
+                    const departmentData = fs.readFileSync(resolve(__dirname, '../../public/Department.json')).toString()
                     ctx.body = success({ data: JSON.parse(departmentData) })
                 } else {
                     ctx.body = error('暂无此项权限', 0)

@@ -12,7 +12,7 @@ export const Auth_Menu: any = {
 export const Auth_Btn: any = {
     look: '查看',
     edit: '编辑',
-    approve: '审批',
+    approve: '审请',
     delete: '删除',
     all: '所有'
 }

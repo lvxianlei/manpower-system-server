@@ -1,3 +1,6 @@
+import * as fs from 'fs'
+import { resolve } from 'path'
+const departmentJSON = fs.readFileSync(resolve(__dirname, '../../public/Department.json')).toString()
 interface Nation {
     name: number | string;
     label: string;
@@ -78,6 +81,7 @@ const List: any = {
     ],
     system_setting: [
         { name: "username", label: "姓名", type: "string" },
+        { name: "department", label: "部门", type: "select", option: JSON.parse(departmentJSON) },
         { name: "email", label: "邮箱", type: "mentions" },
         { name: "id_number", label: "身份证号", type: "string" },
         { name: "phone", label: "联系电话", type: "phone" }

@@ -26,6 +26,12 @@ export default definModel('system_user', {
             }
         }
     },
+    department: {
+        type: DataTypes.STRING(100),
+        validate: {
+            notEmpty: true
+        }
+    },
     type: DataTypes.INTEGER(),
     auth_menu: DataTypes.STRING(255),
     auth_btn: DataTypes.STRING(255)
