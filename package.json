@@ -35,7 +35,7 @@
   "scripts": {
     "start": "cross-env NODE_ENV=development nodemon -e ts,tsx --exec ts-node ./src/server.ts",
     "dev": "tsc && cross-env NODE_ENV=development node ./dist/server.js",
-    "build:": "tsc && cross-env NODE_ENV=development node ./dist/server.js",
+    "build:": "tsc && cross-env NODE_ENV=production node ./dist/server.js",
     "initDB": "tsc && cross-env NODE_ENV=development node ./dist/initDB.js"
   },
   "devDependencies": {
