@@ -1,5 +1,8 @@
-import * as Koa from 'koa';
+import * as path from 'path'
+import * as Koa from 'koa'
 import * as koaBody from 'koa-body'
+import * as koaView from 'koa-views'
+import * as server from 'koa-static'
 import * as JWT from 'koa-jwt'
 import * as jsonwebtoken from 'jsonwebtoken'
 import * as cors from 'koa2-cors' //跨域
@@ -10,6 +13,10 @@ const SECRET = 'manpower-admin'
 const app = new Koa();
 app.use(cors())
 
+app.use(server(path.join(__dirname, '../../manpower-system/build/')))
+
+app.use(koaView(path.join(__dirname, '../../manpower-system/build/'), { extension: 'html' }))
+
 app.use(koaBody({
     multipart: true,
     parsedMethods: ['POST', 'PUT', 'DELETE', 'PATCH'],
@@ -17,6 +24,15 @@ app.use(koaBody({
         maxFileSize: 200 * 1024 * 1024
     }
 }))
+
+
+app.use(async (ctx, next) => {
+    if (ctx.method === 'GET') {
+        await ctx.render('index.html')
+    } else {
+        await next()
+    }
+})
 
 app.use(async (ctx, next) => {
     try {
@@ -38,7 +54,7 @@ app.use(async (ctx: any, next) => {
     if (ctx.path !== '/login') {
         try {
             const operator: any = jsonwebtoken.decode(ctx.header.authorization.split(' ')[1])
-            const user = await SystemUser.findOne({
+            const user: any = await SystemUser.findOne({
                 attributes: {
                     exclude: ['createdAt', 'updatedAt']
                 },
