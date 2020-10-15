@@ -37,7 +37,7 @@
     "dev": "tsc && cross-env NODE_ENV=development node ./dist/server.js",
     "build": "tsc && cross-env NODE_ENV=production pm2 ./dist/server.js",
     "initDB:dev": "tsc && cross-env NODE_ENV=development node ./dist/initDB.js",
-    "initDB": "tsc && cross-env NODE_ENV=development node ./dist/initDB.js"
+    "initDB": "tsc && cross-env NODE_ENV=production node ./dist/initDB.js"
   },
   "devDependencies": {
     "cross-env": "^7.0.2",
