@@ -11,7 +11,7 @@ const config: any = {
         dialect: 'mysql',
         database: 'manpower',
         username: 'root',
-        password: '123456',
+        password: 'root',
         host: 'localhost',
         port: 3306
     },
