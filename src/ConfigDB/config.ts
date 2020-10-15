@@ -24,4 +24,5 @@ const config: any = {
         port: 3306
     }
 }
+console.log(process.env.NODE_ENV, config[process.env.NODE_ENV], "config--------------")
 export default config[process.env.NODE_ENV]
