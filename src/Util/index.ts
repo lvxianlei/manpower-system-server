@@ -54,12 +54,38 @@ export const formatAttendanceXLXS = (sheetJson: Array<any>): Array<any> => {
     return sheetData
 }
 
-type XLXS_type = 'user_info' | 'attendance' | 'achievements'
+export const formatPayCardXLXS = (sheetJson: Array<any>): Array<any> => {
+    const sheetData: Array<any> = []
+    const dateMounth = sheetJson[0].__EMPTY + '-' + sheetJson[0].__EMPTY_1
+    const head: any = sheetJson[1]
+    sheetJson.splice(0, 2)
+    sheetJson.filter(item => item.__EMPTY).forEach((json: any, index: number) => {
+        const user_info_object: any = {
+            division: json.__EMPTY,
+            department: json.__EMPTY_1,
+            position: json.__EMPTY_2,
+            username: json.__EMPTY_3,
+        }
+        Object.keys(json).forEach((jsonKey: string, index: number) => {
+            if (index >= 5 && index <= 35) {
+                sheetData.push({
+                    ...user_info_object,
+                    date: new Date(dateMounth + '-' + head[jsonKey]),
+                    status: attendance_status[json[jsonKey]]
+                })
+            }
+        })
+    })
+    return sheetData
+}
+
+type XLXS_type = 'user_info' | 'attendance' | 'achievements' | 'pay_card'
 
 export const formatXLXS = (sheetJSON: Array<any>, type: XLXS_type) => {
     const type_sheetJSON: any = {
         user_info: formatUserInfoXLXS,
         attendance: formatAttendanceXLXS,
+        pay_card: formatPayCardXLXS
     }
     return type_sheetJSON[type](sheetJSON)
 }

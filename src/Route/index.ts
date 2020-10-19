@@ -1,6 +1,7 @@
 import * as Router from 'koa-router'
 import Auth from './Auth'
 import Edit from './Edit'
+import Department from './Department'
 import List from './List'
 import Login from './Login'
 import Menu from './Menu'
@@ -11,6 +12,8 @@ router.use('/login', Login.routes(), router.allowedMethods())
 router.use('/menu', Menu.routes(), router.allowedMethods())
 
 router.use('/edit', Edit.routes(), router.allowedMethods())
+
+router.use('/department', Department.routes(), router.allowedMethods())
 
 router.use('/auth', Auth.routes(), router.allowedMethods())
 

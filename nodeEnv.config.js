@@ -1,14 +1,14 @@
 module.exports = {
     apps: [
         {
-            name: "production",
+            name: "manpower-pro",
             script: "./dist/server.js",
             env: {
                 "NODE_ENV": "production"
             }
         },
         {
-            name: "development",
+            name: "manpower-dev",
             script: "./dist/server.js",
             env: {
                 "NODE_ENV": "development"
